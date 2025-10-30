@@ -6,4 +6,9 @@
   </style>
 
   <style name="Theme.MPPiano" parent="Base.Theme.MPPiano" />
+
+  <style name="Theme.MiPiano" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <item name="android:windowFullscreen">true</item>
+    <item name="android:windowNoTitle">true</item>
+  </style>
 </resources>

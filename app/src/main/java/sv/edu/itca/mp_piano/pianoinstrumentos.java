@@ -1,13 +1,13 @@
 package sv.edu.itca.mp_piano;
 
 import android.content.Intent;
-import android.media.AudioAttributes;
-import android.media.SoundPool;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -16,78 +16,147 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class pianoinstrumentos extends AppCompatActivity implements View.OnClickListener {
 
-    private SoundPool soundPoolI;
-    private int soundGuitar, soundDrum, soundFlauta, soundViolin, soundArmonica, soundTrompeta, soundHarp;
+    // Constantes para los instrumentos
+
+    private static final int GUITARRA = 0;
+    private static final int VIOLIN = 1;
+    private static final int TROMPETA = 2;
+    private static final int FLAUTA = 3;
+    private static final int BAJO = 4;
+    private static final int ORGANO = 5;
+    private static final int SAXOFON = 6;
+    private static final int XILOFONO = 7;
+
+
+
+    private String nombreIns = "piano"; // Instrumento por defecto
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pianoinstrumentos);
 
-        iniciarSonidos();
+        configurarSpinner();
         iniciarBotones();
     }
 
     private void iniciarBotones() {
+        // Botones de teclas blancas
         findViewById(R.id.btnGuitar).setOnClickListener(this);
         findViewById(R.id.btntambor).setOnClickListener(this);
+        findViewById(R.id.btnviolin).setOnClickListener(this);
         findViewById(R.id.btntompeta).setOnClickListener(this);
         findViewById(R.id.btnflauta).setOnClickListener(this);
-        findViewById(R.id.btnviolin).setOnClickListener(this);
         findViewById(R.id.btnArmonica).setOnClickListener(this);
         findViewById(R.id.btnharp).setOnClickListener(this);
+
+        // Botón aplicar
+        Button btnAplicar = findViewById(R.id.btnAplicar);
+        btnAplicar.setOnClickListener(v -> aplicarInstrumento());
     }
 
-    private void iniciarSonidos() {
-        AudioAttributes audioAttributes = new AudioAttributes.Builder()
-                .setUsage(AudioAttributes.USAGE_MEDIA)
-                .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
-                .build();
+    private void configurarSpinner() {
+        Spinner spInstrumentos = findViewById(R.id.spInstrumentos);
+        int itemSeleccionado = spInstrumentos.getSelectedItemPosition();
 
-        soundPoolI = new SoundPool.Builder()
-                .setMaxStreams(7)
-                .setAudioAttributes(audioAttributes)
-                .build();
-
-        // Cargar sonidos
-        soundGuitar = safeLoad(R.raw.guitar);
-        soundDrum = safeLoad(R.raw.drum);
-        soundArmonica = safeLoad(R.raw.armonica);
-        soundTrompeta = safeLoad(R.raw.trompeta);
-        soundHarp = safeLoad(R.raw.harp);
-        soundViolin = safeLoad(R.raw.violin);
-        soundFlauta = safeLoad(R.raw.flute);
-    }
-
-    private int safeLoad(int resId) {
-        try {
-            return soundPoolI.load(this, resId, 1);
-        } catch (Exception e) {
-            return 0;
+     if (itemSeleccionado == GUITARRA) {
+            nombreIns = "guitarra";
+        } else if (itemSeleccionado == VIOLIN) {
+            nombreIns = "violin";
+        } else if (itemSeleccionado == TROMPETA) {
+            nombreIns = "trompeta";
+        } else if (itemSeleccionado == FLAUTA) {
+            nombreIns = "flauta";
+        } else if (itemSeleccionado == BAJO) {
+            nombreIns = "bajo";
+        } else if (itemSeleccionado == ORGANO) {
+            nombreIns = "organo";
+        } else if (itemSeleccionado == SAXOFON) {
+            nombreIns = "saxofon";
+        } else if (itemSeleccionado == XILOFONO) {
+            nombreIns = "xilofono";
         }
+    }
+
+
+
+
+
+    private void aplicarInstrumento() {
+        configurarSpinner();
+        Toast.makeText(this, "Instrumento: " + nombreIns, Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void onClick(View view) {
         int id = view.getId();
-        if (id == R.id.btnGuitar) tocarNota("Guitarra", soundGuitar);
-        else if (id == R.id.btntambor) tocarNota("Tambor", soundDrum);
-        else if (id == R.id.btntompeta) tocarNota("Trompeta", soundTrompeta);
-        else if (id == R.id.btnviolin) tocarNota("Violin", soundViolin);
-        else if (id == R.id.btnflauta) tocarNota("Flauta", soundFlauta);
-        else if (id == R.id.btnArmonica) tocarNota("Armonica", soundArmonica);
-        else if (id == R.id.btnharp) tocarNota("Arpa", soundHarp);
+
+        if (id == R.id.btnGuitar) playC(view);
+        else if (id == R.id.btntambor) playD(view);
+        else if (id == R.id.btnviolin) playE(view);
+        else if (id == R.id.btntompeta) playF(view);
+        else if (id == R.id.btnflauta) playG(view);
+        else if (id == R.id.btnArmonica) playA(view);
+        else if (id == R.id.btnharp) playB(view);
 
         if (view instanceof Button) aplicarEfectoVisual((Button) view);
     }
 
-    private void tocarNota(String nombre, int soundId) {
-        if (soundId != 0) {
-            soundPoolI.play(soundId, 1f, 1f, 1, 0, 1f);
-            Toast.makeText(this, "♪ " + nombre + " ♪", Toast.LENGTH_SHORT).show();
+    // MÉTODOS PARA REPRODUCIR NOTAS
+    public void playC(View view) {
+        reproducirNota("c4"); //ya
+        mostrarToast("DO");
+    }
+
+    public void playD(View view) {
+        reproducirNota("d4");//
+        mostrarToast("RE");
+    }
+
+    public void playE(View view) {
+        reproducirNota("e4");
+        mostrarToast("MI");
+    }
+
+    public void playF(View view) {
+        reproducirNota("f4");
+        mostrarToast("FA");
+    }
+
+    public void playG(View view) {
+        reproducirNota("g4");
+        mostrarToast("SOL");
+    }
+
+    public void playA(View view) {
+        reproducirNota("a4");
+        mostrarToast("LA");
+    }
+
+    public void playB(View view) {
+        reproducirNota("b4");
+        mostrarToast("SI");
+    }
+
+    // REPRODUCIR NOTA MÉTODO
+    private void reproducirNota(String nota) {
+        String nombreRecurso = nombreIns + "_" + nota;
+        int idRecurso = getResources().getIdentifier(nombreRecurso, "raw", getPackageName());
+
+        if (idRecurso != 0) {
+            MediaPlayer mp = MediaPlayer.create(this, idRecurso);
+            if (mp != null) {
+                mp.start();
+                // Liberar recursos al terminar
+                mp.setOnCompletionListener(MediaPlayer::release);
+            }
         } else {
-            Toast.makeText(this, "♪ " + nombre + " ♪", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Sonido no encontrado: " + nombreRecurso, Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private void mostrarToast(String nota) {
+        Toast.makeText(this, "♪ " + nota + " ♪", Toast.LENGTH_SHORT).show();
     }
 
     private void aplicarEfectoVisual(Button boton) {
@@ -102,10 +171,6 @@ public class pianoinstrumentos extends AppCompatActivity implements View.OnClick
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (soundPoolI != null) {
-            soundPoolI.release();
-            soundPoolI = null;
-        }
     }
 
     // -------------------- MENU --------------------
@@ -122,12 +187,12 @@ public class pianoinstrumentos extends AppCompatActivity implements View.OnClick
         if (id == R.id.piano) {
             new AlertDialog.Builder(this, android.R.style.Theme_Material_Light_Dialog_Alert)
                     .setTitle("Selecciona un modo")
-                    .setItems(new String[]{"Piano Principal", "Piano de Animales"}, (dialog, which) -> {
+                    .setItems(new String[]{"Piano de selva", "Piano Principal"}, (dialog, which) -> {
                         if (which == 0) {
-                            startActivity(new Intent(this, MainActivity.class));
+                            startActivity(new Intent(this, pianoselva.class));
                             finish();
                         } else {
-                            startActivity(new Intent(this, pianoselva.class));
+                            startActivity(new Intent(this, MainActivity.class));
                             finish();
                         }
                     })

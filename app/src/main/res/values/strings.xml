@@ -24,4 +24,21 @@
   <string name="carlos_geovanni_salazar_monterroza">Carlos Geovanni Salazar Monterroza</string>
   <string name="rodrigo_jose_claros_sola">Rodrigo Jose Claros Sola</string>
   <string name="foto_rodri">Foto Rodri</string>
+  <string name="btncambiar">Cambiar</string>
+  <string name="insturmentos">Eligue un instrumento</string>
+
+
+  <array name="instrumentos">
+      <item>guitarra</item>
+      <item>violin</item>
+      <item>trompeta</item>
+      <item>flauta</item>
+      <item>bajo</item>
+      <item>organo</item>
+      <item>saxofon</item>
+      <item>xilofono</item>
+
+    </array>
+
+
 </resources>

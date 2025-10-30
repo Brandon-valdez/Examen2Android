@@ -7,14 +7,60 @@
     android:layout_height="match_parent"
     android:background="@color/black">
 
+    <!-- Selector de instrumentos -->
+    <LinearLayout
+        android:id="@+id/spinnerContainer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:padding="12dp"
+        android:background="@color/white"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/insturmentos"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:paddingEnd="8dp" />
+
+        <Spinner
+            android:id="@+id/spInstrumentos"
+            android:layout_width="200dp"
+            android:layout_height="48dp"
+            android:elevation="4dp"
+            android:entries="@array/instrumentos"
+            android:padding="12dp"
+            android:background="@drawable/tecla_blanca" />
+
+        <Button
+            android:id="@+id/btnAplicar"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:layout_marginStart="8dp"
+            android:background="#FF000000"
+            android:backgroundTint="#312828"
+            android:text="@string/btncambiar"
+            android:textColor="#FFFFFF"
+            android:textColorHint="#050505"
+            android:textColorLink="#3F51B5" />
+
+    </LinearLayout>
+
     <LinearLayout
         android:id="@+id/pianoContainer"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         android:orientation="horizontal"
         android:gravity="bottom"
         android:padding="4dp"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/spinnerContainer"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
@@ -37,14 +83,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:src="@drawable/guitarra"
+                android:background="@color/white"
                 android:scaleType="fitCenter"
                 android:adjustViewBounds="true"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Guitarra"
+                android:text="DO"
                 android:textColor="#000"
                 android:textSize="12sp"
                 android:textStyle="bold"
@@ -70,14 +116,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:src="@drawable/tambor"
+                android:background="@color/white"
                 android:scaleType="fitCenter"
                 android:adjustViewBounds="true"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Tambor"
+                android:text="RE"
                 android:textColor="#000"
                 android:textSize="12sp"
                 android:textStyle="bold"
@@ -103,14 +149,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:src="@drawable/violin"
+                android:background="@color/white"
                 android:scaleType="fitCenter"
                 android:adjustViewBounds="true"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Violin"
+                android:text="MI"
                 android:textColor="#000"
                 android:textSize="12sp"
                 android:textStyle="bold"
@@ -136,14 +182,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:src="@drawable/trompeta"
+                android:background="@color/white"
                 android:scaleType="fitCenter"
                 android:adjustViewBounds="true"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Trompeta"
+                android:text="FA"
                 android:textColor="#000"
                 android:textSize="10sp"
                 android:textStyle="bold"
@@ -169,14 +215,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:src="@drawable/flauta"
+                android:background="@color/white"
                 android:scaleType="fitCenter"
                 android:adjustViewBounds="true"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Flauta"
+                android:text="SOL"
                 android:textColor="#000"
                 android:textSize="12sp"
                 android:textStyle="bold"
@@ -202,14 +248,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:src="@drawable/armonica"
+                android:background="@color/white"
                 android:scaleType="fitCenter"
                 android:adjustViewBounds="true"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Armonica"
+                android:text="LA"
                 android:textColor="#000"
                 android:textSize="10sp"
                 android:textStyle="bold"
@@ -235,14 +281,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:src="@drawable/arpa"
                 android:scaleType="fitCenter"
                 android:adjustViewBounds="true"/>
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Arpa"
+                android:text="SI"
                 android:textColor="#000"
                 android:textSize="12sp"
                 android:textStyle="bold"

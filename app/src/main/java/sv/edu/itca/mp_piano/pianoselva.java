@@ -26,6 +26,7 @@ public class pianoselva extends AppCompatActivity implements View.OnClickListene
 
         iniciarSonidos();
         iniciarBotones();
+
     }
 
     private void iniciarBotones() {
@@ -76,7 +77,6 @@ public class pianoselva extends AppCompatActivity implements View.OnClickListene
     private void tocarNota(String nombre, int soundId) {
         if (soundId != 0) {
             soundPoolA.play(soundId, 1f, 1f, 1, 0, 1f);
-            Toast.makeText(this, "♪ " + nombre + " ♪", Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(this, "♪ " + nombre + " ♪", Toast.LENGTH_SHORT).show();
         }
@@ -109,27 +109,31 @@ public class pianoselva extends AppCompatActivity implements View.OnClickListene
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        int id = item.getItemId();
+        int itemId = item.getItemId();
 
-        if (id == R.id.piano) {
-            new AlertDialog.Builder(this, android.R.style.Theme_Material_Light_Dialog_Alert)
+        if (itemId == R.id.piano) {
+            new AlertDialog.Builder(this,android.R.style.Theme_Material_Light_Dialog_Alert)
                     .setTitle("Selecciona un modo")
                     .setItems(new String[]{"Piano  de Instrumentos", "Piano Principal"}, (dialog, which) -> {
                         if (which == 0) {
                             startActivity(new Intent(this, pianoinstrumentos.class));
-                            finish();
                         } else {
                             startActivity(new Intent(this, MainActivity.class));
-                            finish();
                         }
                     })
                     .setNegativeButton("Cancelar", null)
                     .show();
-        } else if (id == R.id.grupo) {
-            startActivity(new Intent(this, Participantes.class));
+        } else if (itemId == R.id.grupo)
+        {
+            Intent intent = new Intent(this,Participantes.class);
+            startActivity(intent);
             finish();
-        } else if (id == R.id.salir) {
+            return true;
+
+        }
+        else if (itemId == R.id.salir) {
             finishAffinity();
+            return true;
         }
 
         return super.onOptionsItemSelected(item);
