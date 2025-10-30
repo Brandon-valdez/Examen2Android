@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class pianoselva extends AppCompatActivity implements View.OnClickListener {
@@ -75,6 +76,7 @@ public class pianoselva extends AppCompatActivity implements View.OnClickListene
     private void tocarNota(String nombre, int soundId) {
         if (soundId != 0) {
             soundPoolA.play(soundId, 1f, 1f, 1, 0, 1f);
+            Toast.makeText(this, "♪ " + nombre + " ♪", Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(this, "♪ " + nombre + " ♪", Toast.LENGTH_SHORT).show();
         }
@@ -110,13 +112,19 @@ public class pianoselva extends AppCompatActivity implements View.OnClickListene
         int id = item.getItemId();
 
         if (id == R.id.piano) {
-            startActivity(new Intent(this, MainActivity.class));
-            finish();
-        } else if (id == R.id.intrumentos) {
-            startActivity(new Intent(this, pianoinstrumentos.class));
-            finish();
-        } else if (id == R.id.animales) {
-            Toast.makeText(this, "Modo Animales activado", Toast.LENGTH_SHORT).show();
+            new AlertDialog.Builder(this, android.R.style.Theme_Material_Light_Dialog_Alert)
+                    .setTitle("Selecciona un modo")
+                    .setItems(new String[]{"Piano  de Instrumentos", "Piano de Animales"}, (dialog, which) -> {
+                        if (which == 0) {
+                            startActivity(new Intent(this, pianoinstrumentos.class));
+                            finish();
+                        } else {
+                            startActivity(new Intent(this, pianoselva.class));
+                            finish();
+                        }
+                    })
+                    .setNegativeButton("Cancelar", null)
+                    .show();
         } else if (id == R.id.grupo) {
             startActivity(new Intent(this, Participantes.class));
             finish();

@@ -8,6 +8,7 @@ import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -39,20 +40,19 @@ public class Participantes extends AppCompatActivity {
         int itemId = item.getItemId();
 
         if (itemId == R.id.piano) {
-            Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
-            finish();
-            return true;
-        } else if (itemId == R.id.intrumentos) {
-            Intent intent = new Intent(this, pianoinstrumentos.class);
-            startActivity(intent);
-            finish();
-            return true;
-        } else if (itemId == R.id.animales) {
-            Intent intent = new Intent(this, pianoselva.class);
-            startActivity(intent);
-            finish();
-            return true;
+            new AlertDialog.Builder(this, android.R.style.Theme_Material_Light_Dialog_Alert)
+                    .setTitle("Selecciona un modo")
+                    .setItems(new String[]{"Piano  de Instrumentos", "Piano de Animales"}, (dialog, which) -> {
+                        if (which == 0) {
+                            startActivity(new Intent(this, pianoinstrumentos.class));
+                            finish();
+                        } else {
+                            startActivity(new Intent(this, pianoselva.class));
+                            finish();
+                        }
+                    })
+                    .setNegativeButton("Cancelar", null)
+                    .show();
         } else if (itemId == R.id.grupo) {
             mostrarMensaje("Se encuentra en ella");
             return true;

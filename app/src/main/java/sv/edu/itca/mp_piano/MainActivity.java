@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -112,6 +113,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     // Reproducir sonido si está cargado
     if (soundId != 0) {
       soundPool.play(soundId, 1.0f, 1.0f, 1, 0, 1.0f);
+      Toast.makeText(this, "♪ " + nombreNota + " ♪", Toast.LENGTH_SHORT).show();
     } else {
       // Mientras no tengas los sonidos, muestra un toast
       Toast.makeText(this, "♪ " + nombreNota + " ♪", Toast.LENGTH_SHORT).show();
@@ -149,21 +151,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     int itemId = item.getItemId();
 
     if (itemId == R.id.piano) {
-      mostrarMensaje("Modo Piano activado");
-      return true;
-    } else if (itemId == R.id.intrumentos) {
-      Intent intent = new Intent(this, pianoinstrumentos.class);
-      startActivity(intent);
-      finish();
-      return true;
-
-    } else if (itemId == R.id.animales) {
-
-      Intent intent = new Intent(this, pianoselva.class);
-      startActivity(intent);
-      finish();
-
-      return true;
+      new AlertDialog.Builder(this,android.R.style.Theme_Material_Light_Dialog_Alert)
+              .setTitle("Selecciona un modo")
+              .setItems(new String[]{"Piano  de Instrumentos", "Piano de Animales"}, (dialog, which) -> {
+                if (which == 0) {
+                  startActivity(new Intent(this, pianoinstrumentos.class));
+                } else {
+                  startActivity(new Intent(this, pianoselva.class));
+                }
+              })
+              .setNegativeButton("Cancelar", null)
+              .show();
     } else if (itemId == R.id.grupo)
     {
       Intent intent = new Intent(this,Participantes.class);
