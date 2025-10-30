@@ -151,26 +151,30 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     int itemId = item.getItemId();
 
     if (itemId == R.id.piano) {
-      new AlertDialog.Builder(this,android.R.style.Theme_Material_Light_Dialog_Alert)
+      new AlertDialog.Builder(this, android.R.style.Theme_Material_Light_Dialog_Alert)
               .setTitle("Selecciona un modo")
-              .setItems(new String[]{"Piano  de Instrumentos", "Piano de Animales"}, (dialog, which) -> {
+              .setItems(new String[]{"Piano Principal","Piano  de Instrumentos", "Piano de Animales"}, (dialog, which) -> {
                 if (which == 0) {
+                  mostrarMensaje("Se encuentra en ella");
+
+
+                } else if (which == 1) {
                   startActivity(new Intent(this, pianoinstrumentos.class));
-                } else {
+                  finish();
+                }
+                else{
                   startActivity(new Intent(this, pianoselva.class));
+                  finish();
                 }
               })
               .setNegativeButton("Cancelar", null)
               .show();
-    } else if (itemId == R.id.grupo)
-    {
-      Intent intent = new Intent(this,Participantes.class);
-      startActivity(intent);
+
+    } else if (itemId == R.id.grupo) {
+      startActivity(new Intent(this, Participantes.class));
       finish();
       return true;
-
-    }
-    else if (itemId == R.id.salir) {
+    } else if (itemId == R.id.salir) {
       finishAffinity();
       return true;
     }

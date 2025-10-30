@@ -112,30 +112,36 @@ public class pianoselva extends AppCompatActivity implements View.OnClickListene
         int itemId = item.getItemId();
 
         if (itemId == R.id.piano) {
-            new AlertDialog.Builder(this,android.R.style.Theme_Material_Light_Dialog_Alert)
+            new AlertDialog.Builder(this, android.R.style.Theme_Material_Light_Dialog_Alert)
                     .setTitle("Selecciona un modo")
-                    .setItems(new String[]{"Piano  de Instrumentos", "Piano Principal"}, (dialog, which) -> {
+                    .setItems(new String[]{"Piano Principal","Piano  de Instrumentos", "Piano de Animales"}, (dialog, which) -> {
                         if (which == 0) {
-                            startActivity(new Intent(this, pianoinstrumentos.class));
-                        } else {
                             startActivity(new Intent(this, MainActivity.class));
+                            finish();
+
+                        } else if (which == 1) {
+                            startActivity(new Intent(this, pianoinstrumentos.class));
+                            finish();
+                        }
+                        else{
+                            mostrarMensaje("Se encuentra en ella");
+
                         }
                     })
                     .setNegativeButton("Cancelar", null)
                     .show();
-        } else if (itemId == R.id.grupo)
-        {
-            Intent intent = new Intent(this,Participantes.class);
-            startActivity(intent);
+        } else if (itemId == R.id.grupo) {
+            startActivity(new Intent(this, Participantes.class));
             finish();
             return true;
-
-        }
-        else if (itemId == R.id.salir) {
+        } else if (itemId == R.id.salir) {
             finishAffinity();
             return true;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+    private void mostrarMensaje(String mensaje) {
+        Toast.makeText(this, mensaje, Toast.LENGTH_SHORT).show();
     }
 }

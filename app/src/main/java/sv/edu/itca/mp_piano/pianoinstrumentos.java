@@ -182,29 +182,39 @@ public class pianoinstrumentos extends AppCompatActivity implements View.OnClick
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        int id = item.getItemId();
+        int itemId = item.getItemId();
 
-        if (id == R.id.piano) {
+        if (itemId == R.id.piano) {
             new AlertDialog.Builder(this, android.R.style.Theme_Material_Light_Dialog_Alert)
                     .setTitle("Selecciona un modo")
-                    .setItems(new String[]{"Piano de selva", "Piano Principal"}, (dialog, which) -> {
+                    .setItems(new String[]{"Piano Principal","Piano  de Instrumentos", "Piano de Animales"}, (dialog, which) -> {
                         if (which == 0) {
-                            startActivity(new Intent(this, pianoselva.class));
-                            finish();
-                        } else {
                             startActivity(new Intent(this, MainActivity.class));
+                            finish();
+
+                        } else if (which == 1) {
+                            mostrarMensaje("Se encuentra en ella");
+                        }
+                        else{
+                            startActivity(new Intent(this, pianoselva.class));
                             finish();
                         }
                     })
                     .setNegativeButton("Cancelar", null)
                     .show();
-        } else if (id == R.id.grupo) {
+        } else if (itemId == R.id.grupo) {
             startActivity(new Intent(this, Participantes.class));
             finish();
-        } else if (id == R.id.salir) {
+            return true;
+        } else if (itemId == R.id.salir) {
             finishAffinity();
+            return true;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void mostrarMensaje(String mensaje) {
+        Toast.makeText(this, mensaje, Toast.LENGTH_SHORT).show();
     }
 }
