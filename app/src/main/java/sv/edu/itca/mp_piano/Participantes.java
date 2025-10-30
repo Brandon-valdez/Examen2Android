@@ -42,11 +42,16 @@ public class Participantes extends AppCompatActivity {
         if (itemId == R.id.piano) {
             new AlertDialog.Builder(this, android.R.style.Theme_Material_Light_Dialog_Alert)
                     .setTitle("Selecciona un modo")
-                    .setItems(new String[]{"Piano  de Instrumentos", "Piano de Animales"}, (dialog, which) -> {
+                    .setItems(new String[]{"Piano Principal","Piano  de Instrumentos", "Piano de Animales"}, (dialog, which) -> {
                         if (which == 0) {
+                            startActivity(new Intent(this, MainActivity.class));
+                            finish();
+
+                        } else if (which == 1) {
                             startActivity(new Intent(this, pianoinstrumentos.class));
                             finish();
-                        } else {
+                        }
+                        else{
                             startActivity(new Intent(this, pianoselva.class));
                             finish();
                         }

@@ -122,9 +122,9 @@ public class pianoinstrumentos extends AppCompatActivity implements View.OnClick
         if (id == R.id.piano) {
             new AlertDialog.Builder(this, android.R.style.Theme_Material_Light_Dialog_Alert)
                     .setTitle("Selecciona un modo")
-                    .setItems(new String[]{"Piano  de Instrumentos", "Piano de Animales"}, (dialog, which) -> {
+                    .setItems(new String[]{"Piano Principal", "Piano de Animales"}, (dialog, which) -> {
                         if (which == 0) {
-                            startActivity(new Intent(this, pianoinstrumentos.class));
+                            startActivity(new Intent(this, MainActivity.class));
                             finish();
                         } else {
                             startActivity(new Intent(this, pianoselva.class));
